@@ -1,0 +1,9 @@
+# configurações locais das ferramentas (só o servidor de desenvolvimento entra no repositório)
+.claude/*
+!.claude/serve.js
+
+# sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+node_modules/
