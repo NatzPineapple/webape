@@ -2,7 +2,7 @@
 
 Maquete 3D de apartamento ou casa para testar cores de parede antes de pintar. Você monta a planta (ou usa a que vem pronta), gira a maquete em 3D e pinta cada parede com cores reais do catálogo **Suvinil**.
 
-O app inteiro é um único arquivo, `index.html`: HTML, CSS e JavaScript puros, com WebGL feito à mão. Não tem build, dependências nem servidor. Os dados ficam no `localStorage` do navegador.
+É HTML, CSS e JavaScript puros, com WebGL feito à mão. Não tem build, dependências nem servidor: basta abrir o `index.html`. Os dados ficam no `localStorage` do navegador.
 
 ---
 
@@ -119,21 +119,41 @@ Os projetos (as cores pintadas) ficam só no navegador onde foram feitos. O `.js
 
 ## Estrutura dos arquivos
 
+```
+index.html                  estrutura da página (telas: home, visor, editor)
+css/
+  base.css                  cores do tema claro/escuro, tipografia, barra do topo
+  home.css                  tela inicial: projetos e cartões de modelo
+  visor.css                 área do 3D: canvas, rótulos, botões de vista
+  componentes.css           painel lateral e peças compartilhadas (paleta, botões, controles)
+  editor.css                editor de modelos: ferramentas, planta em SVG, painel
+js/
+  dados/
+    planta-apartamento.js   a planta embutida "Apartamento"
+    cores-suvinil.js        catálogo Suvinil (gerado — não editar à mão)
+  visor-3d.js               geometria, WebGL, câmera, seleção por clique
+  pintura.js                aplicar cores, paleta, meia parede, esquemas, cômodos
+  projetos.js               home, projetos, modelos, importar/baixar .json, pré-visualização
+  editor.js                 editor de modelos
+  main.js                   partida do app
+```
+
 | Arquivo | O que é |
 |---|---|
-| `index.html` | O app completo (home, visualizador 3D, editor, paleta embutida). |
-| `paleta-suvinil.json` | Catálogo tratado: `[nome, código, hex sem #, índice da família]`. É o mesmo conteúdo embutido em `index.html`. |
+| `paleta-suvinil.json` | Catálogo tratado: `[nome, código, hex sem #, índice da família]`. Mesmo conteúdo de `js/dados/cores-suvinil.js`, em JSON puro. |
 | `suvinil-cores.json` | Resposta bruta da API da Suvinil (2.540 cores), usada como entrada do tratamento. |
 | `baixar-cores.js` | Baixa o catálogo bruto da API da Suvinil. |
-| `gerar-paleta.js` | Filtra (tira vernizes, metálicos etc.), remove duplicados e classifica por família. |
-| `.claude/serve.js` · `.claude/launch.json` | Servidor estático de desenvolvimento. |
+| `gerar-paleta.js` | Filtra (tira vernizes, metálicos etc.), remove duplicados, classifica por família e grava `paleta-suvinil.json` e `js/dados/cores-suvinil.js`. |
+| `.claude/serve.js` | Servidor estático de desenvolvimento. |
+
+Os scripts são `<script>` comuns (não módulos ES) para o app abrir também com dois cliques. Eles compartilham variáveis globais e **a ordem das tags no `index.html` importa**: cada arquivo só pode usar, no momento em que carrega, o que foi definido nos arquivos anteriores. Dentro de funções (cliques, desenho, etc.) tudo já está carregado.
 
 ### Atualizar o catálogo de cores
 ```bash
 node baixar-cores.js     # gera suvinil-cores.json (254 páginas, ~1 min)
-node gerar-paleta.js     # gera paleta-suvinil.json
+node gerar-paleta.js     # gera paleta-suvinil.json e js/dados/cores-suvinil.js
 ```
-Depois, substitua em `index.html` o conteúdo da linha `const CORES = [...];` pelo conteúdo de `paleta-suvinil.json`. A paleta fica embutida no HTML para o app funcionar sem rede.
+Não há passo manual: o app lê a paleta de `js/dados/cores-suvinil.js`.
 
 A API da Suvinil pagina a partir de `page=1` (`page=0` retorna erro) e ignora filtros. As famílias cromáticas (Brancos, Cinzas, Azuis…) não vêm da API: são calculadas a partir do RGB, por matiz e luminosidade.
 

@@ -48,3 +48,13 @@ const compacto = saida.map(c=>[c[0],c[1],c[2].slice(1),FAMS.indexOf(c[3])]);
 fs.writeFileSync('paleta-suvinil.json', JSON.stringify(compacto));
 console.log('tamanho do JSON:', (fs.statSync('paleta-suvinil.json').size/1024).toFixed(1), 'KB');
 console.log('exemplos:', JSON.stringify(compacto.slice(0,3)), JSON.stringify(compacto.slice(-2)));
+
+// o app lê a paleta deste arquivo (script comum, para funcionar também abrindo o index.html direto)
+fs.mkdirSync('js/dados', { recursive:true });
+fs.writeFileSync('js/dados/cores-suvinil.js',
+  '// Gerado por gerar-paleta.js a partir de suvinil-cores.json — não edite à mão.\n' +
+  '// Cada cor: [nome, código, hex sem #, índice em FAMILIAS]\n' +
+  '"use strict";\n' +
+  'const FAMILIAS = ' + JSON.stringify(FAMS) + ';\n' +
+  'const CORES = ' + JSON.stringify(compacto) + ';\n');
+console.log('js/dados/cores-suvinil.js atualizado');

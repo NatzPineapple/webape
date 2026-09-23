@@ -1,0 +1,69 @@
+/* Tela inicial: projetos e cartões de modelo */
+/* ---------- home ---------- */
+.home{height:100svh; overflow-y:auto; background:var(--paper)}
+.home-inner{max-width:960px; margin:0 auto; padding:48px 24px 64px}
+.brand{
+  font-family:"Archivo",sans-serif; font-weight:700; font-size:13.5px; letter-spacing:.02em;
+  color:var(--accent-ink); display:flex; align-items:center; gap:7px; margin-bottom:14px;
+}
+.brand .dot{width:7px; height:7px; border-radius:50%; background:var(--accent)}
+.home-head h1{font-size:26px; font-weight:700; margin-bottom:6px}
+.home-head .sub{color:var(--muted); font-size:14px}
+.home-section{margin-top:36px}
+.home-section .eyebrow{margin-bottom:14px}
+.home-toprow{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px}
+
+.modelos{
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:14px; margin-top:14px;
+}
+.modelo-card, .projeto-card{
+  border:1px solid var(--line); border-radius:12px; background:var(--surface);
+  padding:16px; display:flex; flex-direction:column; gap:10px; box-shadow:var(--shadow);
+}
+.modelo-prev{
+  height:84px; border-radius:8px; background:var(--surface2);
+  display:flex; align-items:center; justify-content:center; color:var(--muted);
+}
+.modelo-prev svg{width:56px; height:56px}
+.modelo-prev-mais{font-size:32px; font-weight:300; color:var(--line)}
+.modelo-nome{font-family:"Archivo",sans-serif; font-weight:700; font-size:15px}
+.modelo-info{color:var(--muted); font-size:12.5px}
+.modelo-futuro{opacity:.62}
+.modelo-futuro .modelo-prev{border:1px dashed var(--line); background:none}
+
+.projetos{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr)); gap:14px; margin-top:14px}
+.projeto-chips{display:flex; border-radius:6px; overflow:hidden; height:34px}
+.projeto-chips i{flex:1; display:block}
+.projeto-nome{
+  font-family:"Archivo",sans-serif; font-weight:700; font-size:14.5px; cursor:text;
+  border-radius:5px; padding:2px 4px; margin:-2px -4px;
+}
+.projeto-nome:hover{background:var(--surface2)}
+.projeto-nome:focus-visible{outline:2px solid var(--accent)}
+input.projeto-nome-edit{
+  font:700 14.5px "Archivo",sans-serif; width:100%; padding:2px 4px; border-radius:5px;
+  border:1px solid var(--accent); background:var(--surface); color:var(--ink);
+}
+.projeto-sub{color:var(--muted); font-size:11px; margin-top:2px}
+.projeto-actions{display:flex; gap:8px; margin-top:2px}
+.projeto-actions .btn{flex:1}
+.projeto-actions .btn-del{color:var(--muted)}
+.projeto-actions .btn-del:hover{color:var(--warn); background:var(--surface2)}
+.home-empty{color:var(--muted); font-size:13px; margin-top:10px}
+
+/* ---------- avisos e modelos na home ---------- */
+.home-aviso{
+  margin-top:16px; padding:10px 12px; border-radius:8px; font-size:13px;
+  border:1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  background:var(--accent-soft); color:var(--accent-ink); max-width:640px;
+}
+.modelo-prev svg.mini{width:100%; height:100%; padding:10px}
+.mini-piso{fill:var(--piso); stroke:var(--piso-borda); stroke-width:1; vector-effect:non-scaling-stroke}
+.mini-piso.molhado{fill:var(--piso-molhado)}
+.mini-parede{stroke:var(--parede); stroke-width:2.2; stroke-linecap:square; vector-effect:non-scaling-stroke}
+.mini-parede.meia{stroke-dasharray:3 2}
+.modelo-acoes{display:flex; gap:6px}
+.modelo-acoes .btn{flex:1; padding:6px 8px; font-size:12px}
+.modelo-acoes .btn-del:hover{color:var(--warn)}
+.modelo-novo{border-style:dashed; box-shadow:none}
+.modelo-novo .modelo-prev{background:none; border:1px dashed var(--line); font-size:30px; font-weight:300; color:var(--accent)}
